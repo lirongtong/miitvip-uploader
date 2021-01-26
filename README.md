@@ -11,7 +11,7 @@
 </h1>
 
 <div align="center">
-Makeit Uploader 上传组件，基于 Vue3.0 + Vite 开发。支持单图 / 多图上传及预览，单文件 / 多文件上传，分片上传，秒传，断点续传等。
+基于 Vue3.0 + Vite 开发的上传组件
 
 [![npm package](https://img.shields.io/npm/v/makeit-uploader.svg?style=flat-square)](https://www.npmjs.org/package/makeit-captcha)
 [![npm_downloads](http://img.shields.io/npm/dm/makeit-uploader.svg?style=flat-square)](http://www.npmtrends.com/makeit-captcha)
@@ -24,7 +24,7 @@ Makeit Uploader 上传组件，基于 Vue3.0 + Vite 开发。支持单图 / 多�
 
 ## 关于
 
-> Makeit Uploader 上传组件，基于 Vue3.0 + Vite 开发。支持单图 / 多图上传及预览，单文件 / 多文件上传，分片上传，秒传，断点续传等，能满足日常开发中对上传组件的大部分需求。
+> Makeit Uploader 上传组件，基于 Vue3.0 + Vite 开发的。支持单图 / 多图上传及预览，单文件 / 多文件上传，分片上传，秒传，断点续传等，能满足日常开发中对上传组件的大部分需求。
 
 ## 安装
 

@@ -1,0 +1,36 @@
+@mi-prefix: mi-;
+@mi-font-size: 1rem;
+@mi-font-size-sm: 12px;
+@mi-font-size-normal: 14px;
+@mi-font-size-base: 16px;
+@mi-spacing: 8px;
+
+.flex(@align: center, @justify: center) {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: @align;
+    align-items: @align;
+    justify-content: @justify;
+}
+
+.border-radius(@raduis: 4) {
+    -moz-border-radius: (@raduis / @mi-font-size-base) * @mi-font-size;
+    -webkit-border-radius: (@raduis / @mi-font-size-base) * @mi-font-size;
+    -o-border-radius: (@raduis / @mi-font-size-base) * @mi-font-size;
+    -khtml-border-radius: (@raduis / @mi-font-size-base) * @mi-font-size;
+    border-radius: (@raduis / @mi-font-size-base) * @mi-font-size;
+}
+
+.properties(@key, @value: @mi-spacing) {
+    @{key}: (@value / @mi-font-size-base) * @mi-font-size;
+}
+
+.text-ellipsis(){
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.letter-spacing(@value: 2) {
+    .properties(letter-spacing, 2);
+}

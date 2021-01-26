@@ -57,7 +57,7 @@ module.exports = {
 				commonjs: '@ant-design/icons-vue',
 				commonjs2: '@ant-design/icons-vue',
 				amd: '@ant-design/icons-vue'
-			}
+            }
         }
     ],
     plugins: [
