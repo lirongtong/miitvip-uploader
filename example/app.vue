@@ -1,3 +1,5 @@
 <template>
-    <mi-uploader></mi-uploader>
+    <div class="mi-uploaders">
+        <mi-uploader></mi-uploader>
+    </div>
 </template>
