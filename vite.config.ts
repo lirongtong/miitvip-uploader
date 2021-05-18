@@ -9,8 +9,8 @@ const config: UserConfig = {
         alias: {
             '/@/': resolve('example'),
             '/@src/': resolve('src'),
-            'makeit-uploader': '/@src/index.ts',
-            'makeit-uploader/style': '/@src/style.ts'
+            'makeit-uploader': resolve('src'),
+            'makeit-uploader/style': '/src/style.ts'
         }
     },
     css: {
