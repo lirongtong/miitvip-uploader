@@ -1,4 +1,5 @@
 import { App } from 'vue'
+import { version } from '../package.json'
 import { default as Uploader } from './uploader'
 
 const install = (app: App) => {
@@ -9,6 +10,6 @@ const install = (app: App) => {
 export { Uploader }
 
 export default {
-    version: `${process.env.VERSION}`,
+    version,
     install
 }
