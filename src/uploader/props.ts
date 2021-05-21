@@ -18,12 +18,14 @@ function getUploaderPropTypes() {
         sliceSize: PropTypes.number,
         maxSize: PropTypes.number,
         autoStart: PropTypes.bool.def(true),
+        borderColor: PropTypes.string.def('#000'),
         fileList: PropTypes.array,
         listType: PropTypes.oneOf(
             tuple('list', 'card')
         ).def('list'),
         disabled: PropTypes.bool.def(false),
-        onChange: PropTypes.func
+        onChange: PropTypes.func,
+        prefixCls: PropTypes.string
     }
 }
 
