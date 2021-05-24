@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue'
 import UploaderProps from './props'
+import { FileImageOutlined } from '@ant-design/icons-vue'
 
 export default defineComponent({
     name: 'MiUploader',
@@ -17,9 +18,11 @@ export default defineComponent({
             audio: ['audio/*'],
             video: ['video/*']
         }
-        const singleImageElem = <div class={`${prefixCls}-image`}>
+        let singleImageAreaStyle = props.width ? `width: ${props.width}px;` : null
+        singleImageAreaStyle += props.height ? `height: ${props.height}px;` : null
+        const singleImageElem = <div class={`${prefixCls}-image`} style={singleImageAreaStyle}>
             <div class={`${prefixCls}-image-icon`}>
-
+                <FileImageOutlined />上传图片
             </div>
         </div>
         let innerHtml = null

@@ -2,5 +2,32 @@
 
 @mi-uploader: ~'@{mi-prefix}uploader';
 .@{mi-uploader} {
-    position: relative;
+    &-container {
+        position: relative;
+        .letter-spacing();
+    }
+
+    &-image {
+        .properties(width, 138);
+		.properties(height, 160);
+		.properties(padding, 8);
+        .border-radius(4);
+        .flex();
+        color: @mi-font-color;
+        border: 1px solid @mi-theme-color;
+        .properties(font-size, 14);
+        position: relative;
+        overflow: hidden;
+
+        &-icon {
+            .flex();
+            flex-direction: column;
+
+            span.anticon {
+                .properties(font-size, 42);
+                .properties(margin-bottom, 8);
+                color: @mi-font-color;
+            }
+        }
+    }
 }
