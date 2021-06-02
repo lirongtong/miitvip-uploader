@@ -21,7 +21,7 @@ const config: UserConfig = {
         }
     },
     optimizeDeps: {
-        include: ['vue', 'axios']
+        include: ['vue', 'axios', 'js-md5', '@ant-design/icons-vue', 'vue-types']
     },
     server: {
         proxy: {

@@ -1,12 +1,15 @@
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import UploaderProps from './props'
+import { tools } from '../utils/tools'
 import { FileImageOutlined } from '@ant-design/icons-vue'
 
 export default defineComponent({
     name: 'MiUploaderBtn',
     inheritAttrs: false,
     props: {...UploaderProps},
-    setup(props, { slots }) {
+    emits: ['fileAdded'],
+    setup(props, { slots, emit }) {
+        const fileList = reactive([])
         // class name prefix
         const prefixCls = props.prefixCls ?? 'mi-uploader'
         // accepts
@@ -20,6 +23,31 @@ export default defineComponent({
             audio: ['audio/*'],
             video: ['video/*']
         }
+        const accept = props.accept
+            ? (
+                accepts[props.accept]
+                    ? accepts[props.accept].join(',')
+                    : props.accept
+            ) : (
+                props.type === 'image'
+                    ? accepts.image.join(',')
+                    : accepts.image.concat(accepts.doc, accepts.audio, accepts.video).join(',')
+            )
+        // on change
+        const onFileAdded = (e: any) => {
+            const files = e.target.files
+            const _files = []
+            for (let i = 0, l = files.length; i < l; i++) {
+                const file = files[i]
+                const uniqueIdentifier = tools.generateUniqueIdentifier(file)
+                if (!tools.getFromUniqueIdentifier(files, uniqueIdentifier)) {
+                    file.uniqueIdentifier = uniqueIdentifier
+                    _files.push(file)
+                    emit('fileAdded', file)
+                }
+            }
+        }
+        // images
         const images = {
             single: {
                 cls: `${prefixCls}-image`,
@@ -29,19 +57,22 @@ export default defineComponent({
             },
             multiple: {}
         }
-        // single image
         images.single.elem = <div class={images.single.cls} style={images.single.style}>
             <div class={`${images.single.cls}-icon`}>
                 <FileImageOutlined />上传图片
             </div>
             <div class={`${images.single.cls}-preview`}></div>
-            <div class={`${images.single.cls}-progress`}></div>
+            <div class={`${images.single.cls}-progress`}>
+
+            </div>
             <div class={`${images.single.cls}-input`}>
                 <input type="file"
                     multiple={props.multiple}
-                    accept={props.accept ?? accepts.image.join(',')} />
+                    onChange={onFileAdded}
+                    accept={accept} />
             </div>
         </div>
+        // element
         let elem = null
         if (props.type === 'image' && !props.multiple) elem = images.single.elem
         return () => slots.default?.() ?? elem

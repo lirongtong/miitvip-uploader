@@ -25,6 +25,7 @@ function getUploaderPropTypes() {
         ).def('list'),
         disabled: PropTypes.bool.def(false),
         onChange: PropTypes.func,
+        onFileAdded: PropTypes.func,
         prefixCls: PropTypes.string,
         width: PropTypes.number.def(0),
         height: PropTypes.number.def(0)
