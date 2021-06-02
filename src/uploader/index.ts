@@ -1,4 +1,10 @@
+import { App, Plugin } from 'vue'
 import Uploader from './uploader'
-import { install } from '../utils/install'
 
-export default install(Uploader)
+Uploader.install = function(app: App) {
+    app.component(Uploader.name, Uploader)
+    app.component(Uploader.Btn.name, Uploader.Btn)
+    return app
+}
+
+export default Uploader as typeof Uploader & Plugin

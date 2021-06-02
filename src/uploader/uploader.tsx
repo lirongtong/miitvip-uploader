@@ -2,10 +2,10 @@ import { defineComponent } from 'vue'
 import UploaderProps from './props'
 import MiUploaderBtn from './btn'
 
-export default defineComponent({
+const MiUploader =  defineComponent({
     name: 'MiUploader',
     inheritAttrs: false,
-    props: {...UploaderProps},
+    props: { ...UploaderProps },
     setup(props) {
         const prefixCls = props.prefixCls ?? 'mi-uploader'
         const accepts = {
@@ -23,3 +23,8 @@ export default defineComponent({
         </div>
     }
 })
+
+MiUploader.Btn = MiUploaderBtn
+export default MiUploader as typeof MiUploader & {
+    readonly Btn: typeof MiUploaderBtn
+}
