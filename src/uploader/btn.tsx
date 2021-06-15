@@ -36,13 +36,12 @@ export default defineComponent({
         // on change
         const onFileAdded = (e: any) => {
             const files = e.target.files
-            const _files = []
             for (let i = 0, l = files.length; i < l; i++) {
                 const file = files[i]
                 const uniqueIdentifier = tools.generateUniqueIdentifier(file)
                 if (!tools.getFromUniqueIdentifier(files, uniqueIdentifier)) {
                     file.uniqueIdentifier = uniqueIdentifier
-                    _files.push(file)
+                    fileList.push(file)
                     emit('fileAdded', file)
                 }
             }
