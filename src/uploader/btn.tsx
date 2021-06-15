@@ -98,16 +98,14 @@ export default defineComponent({
                     <div class={`${images.single.cls}-icon`}>
                         <FileImageOutlined />上传图片
                     </div>
-                    { getSingleImagePreview() }
-                    <div class={`${images.single.cls}-progress`}>
-
-                    </div>
                     <div class={`${images.single.cls}-input`}>
                         <input type="file"
                             multiple={props.multiple}
                             onChange={onFileAdded}
                             accept={accept} />
                     </div>
+                    { getSingleImagePreview() }
+                    <div class={`${images.single.cls}-progress`}></div>
                 </div>
             )
         }
@@ -116,38 +114,40 @@ export default defineComponent({
             reader.onload = (e: any) => {
                 images.single.preview.error = null
                 images.single.preview.status = true
-                nextTick(() => {
-                    const img = document.getElementById(images.single.preview.id) as HTMLImageElement
-                    if (img) {
-                        // adapt
-                        img.src = e.target.result
-                        const parentNode = img.parentNode as HTMLDivElement
-                        const origin = {
-                            width: parentNode ? parentNode.clientWidth : 0,
-                            height: parentNode ? parentNode.clientHeight : 0
-                        }
-                        img.onload = function() {
-                            const width = img.naturalWidth
-                            const height = img.naturalHeight
-                            console.log(img.clientWidth)
-                            if (width > height) {
-                                images.single.preview.width = origin.width
-                                const h = Math.ceil(origin.width * height / width)
-                                images.single.preview.height = h
-                            } else {
-                                images.single.preview.height = origin.height
-                                const w = Math.ceil(width * origin.height / height)
-                                images.single.preview.width = w
-                            }
-                        }
-                        img.onerror = () => {
-                            images.single.preview.error = '当前所选文件不符合，请重新选择图片类型文件！'
-                        }
-                    }
-                })
+                handleImagePreview(e, images.single.preview.id)
             }
             reader.onerror = () => images.single.preview.error = '图片读取失败'
             reader.readAsDataURL(file)
+        }
+        const handleImagePreview = (e: any, id: string) => {
+            nextTick(() => {
+                const img = document.getElementById(id) as HTMLImageElement
+                if (img) {
+                    // adapt
+                    img.src = e.target.result
+                    const parentNode = img.parentNode as HTMLDivElement
+                    const origin = {
+                        width: parentNode ? parentNode.clientWidth : 0,
+                        height: parentNode ? parentNode.clientHeight : 0
+                    }
+                    img.onload = function() {
+                        const width = img.naturalWidth
+                        const height = img.naturalHeight
+                        if (width > height) {
+                            images.single.preview.width = origin.width
+                            const h = Math.ceil(origin.width * height / width)
+                            images.single.preview.height = h
+                        } else {
+                            images.single.preview.height = origin.height
+                            const w = Math.ceil(width * origin.height / height)
+                            images.single.preview.width = w
+                        }
+                    }
+                    img.onerror = () => {
+                        images.single.preview.error = '当前所选文件不符合，请重新选择图片类型文件！'
+                    }
+                }
+            })
         }
         return () => {
             // element
