@@ -6,10 +6,10 @@ const MiUploader =  defineComponent({
     name: 'MiUploader',
     inheritAttrs: false,
     props: { ...UploaderProps },
-    setup(props) {
+    setup(props, { slots }) {
         const prefixCls = props.prefixCls ?? 'mi-uploader'
         return () => <div class={`${prefixCls}-container`}>
-            <MiUploaderBtn {...props} />
+            { slots.default?.() ?? <MiUploaderBtn {...props} /> }
         </div>
     }
 })
