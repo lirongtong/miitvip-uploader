@@ -37,7 +37,7 @@ export default defineComponent({
             },
             multiple: {}
         })
-        const SINGLE = reactive({
+        const SINGLE = {
             getStyle: () => {
                 return (props.width ? `width: ${props.width}px;` : '').toString() +
                     (props.height ? `height: ${props.height}px;` : '').toString() +
@@ -59,7 +59,7 @@ export default defineComponent({
             },
             getProgress: () => {
                 const condition = props.showDefaultProgress &&
-                images.single.preview.progress < 100 &&
+                    images.single.preview.progress < 100 &&
                     (
                         (
                             props.autoStart &&
@@ -89,6 +89,19 @@ export default defineComponent({
                     </div>
                     : null
             },
+            getUploadBtn: () => {
+                return !images.single.uploading &&
+                    images.single.preview.status &&
+                    !images.single.preview.error
+                        ? (
+                            <div class={`${images.single.cls}-upload-btn`}>
+                                <div class="mask"></div>
+                                <div class="btn">
+                                    <button>开始上传</button>
+                                </div>
+                            </div>
+                        ) : null
+            },
             showPreview: (file: any) => {
                 const reader = new FileReader()
                 reader.onload = (evt: any) => {
@@ -99,7 +112,7 @@ export default defineComponent({
                 reader.onerror = () => images.single.preview.error = '图片读取失败'
                 reader.readAsDataURL(file)
             }
-        })
+        }
         const onFileAdded = (evt: any) => {
             const files = evt.target.files
             for (let i = 0, l = files.length; i < l; i++) {
@@ -128,6 +141,7 @@ export default defineComponent({
                             onChange={onFileAdded}
                             accept={tools.getAccept(props.type, props.accept)} />
                     </div>
+                    { SINGLE.getUploadBtn() }
                     { SINGLE.getPreview() }
                     { SINGLE.getProgress() }
                 </div>
