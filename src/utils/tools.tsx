@@ -40,5 +40,34 @@ class MiTools {
         }
         return ret
     }
+
+    /**
+     * 获取支持类型.
+     * @param type 
+     * @param accept 
+     * @returns 
+     */
+    getAccept(type = 'image', accept?: any) {
+        const accepts = {
+            image: ['image/*'],
+            doc: [
+                '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx',
+                '.pdf', '.txt', '.zip', '.rar', '.7z', '.tif',
+                '.tiff', 'csv', 'epub', 'pages', 'numbers', 'keynote'
+            ],
+            audio: ['audio/*'],
+            video: ['video/*']
+        }
+        return accept
+            ? (
+                accepts[accept]
+                    ? accepts[accept].join(',')
+                    : accept
+            ) : (
+                type === 'image'
+                    ? accepts.image.join(',')
+                    : accepts.image.concat(accepts.doc, accepts.audio, accepts.video).join(',')
+            )
+    }
 }
 export const tools = new MiTools()
