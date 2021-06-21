@@ -1,6 +1,7 @@
 import { defineComponent } from 'vue'
 import UploaderProps from './props'
 import MiUploaderImage from './image'
+import MiUploaderFile from './file'
 
 export default defineComponent({
     name: 'MiUploaderBtn',
@@ -8,11 +9,10 @@ export default defineComponent({
     props: { ...UploaderProps },
     emits: ['fileAdded'],
     setup(props, { slots }) {
-        const getFileElement = () => {}
         return () => {
             let elem = null
             if (props.type === 'image') elem = <MiUploaderImage { ...props } />
-            if (props.type === 'file') elem = getFileElement()
+            if (props.type === 'file') elem = <MiUploaderFile { ...props } />
             return slots.default?.() ?? elem
         }
     }
