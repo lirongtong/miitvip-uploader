@@ -138,7 +138,7 @@
             }
 
             .btn {
-                z-index: 20;
+                z-index: 40;
 
                 button {
                     background: @mi-theme-color;
@@ -147,8 +147,8 @@
                     .properties(width, 64);
                     .properties(height, 64);
                     border-color: @mi-theme-color;
-                    color: @mi-white-color;
                     box-shadow: 0 0 2px @mi-theme-color;
+                    color: @mi-white-color;
                     .properties(padding-top, 6);
                     .properties(padding-bottom, 6);
                     .properties(padding-left, 16);
@@ -160,6 +160,25 @@
                     .flex();
                 }
             }
+            .btn-ripple {
+                position: absolute;
+                .properties(width, 64);
+                .properties(height, 64);
+                .flex();
+                background: fade(@mi-theme-color, 50%);
+                z-index: 20;
+                .border-radius-circle();
+                animation: mi-scale .8s infinite alternate;
+            }
         }
+    }
+}
+
+@keyframes mi-scale {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.2);
     }
 }

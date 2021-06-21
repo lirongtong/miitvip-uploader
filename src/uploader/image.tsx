@@ -90,7 +90,8 @@ export default defineComponent({
                     : null
             },
             getUploadBtn: () => {
-                return !images.single.uploading &&
+                return !props.autoStart &&
+                    !images.single.uploading &&
                     images.single.preview.status &&
                     !images.single.preview.error
                         ? (
@@ -99,6 +100,7 @@ export default defineComponent({
                                 <div class="btn">
                                     <button>开始上传</button>
                                 </div>
+                                <div class="btn-ripple"></div>
                             </div>
                         ) : null
             },
