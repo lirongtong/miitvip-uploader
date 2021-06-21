@@ -18,7 +18,11 @@ function getUploaderPropTypes() {
         sliceSize: PropTypes.number,
         maxSize: PropTypes.number,
         autoStart: PropTypes.bool.def(true),
-        borderColor: PropTypes.string.def('#000'),
+        showDefaultProgress: PropTypes.bool.def(true),
+        progressCallbackInterval: PropTypes.number.def(500),
+        borderColor: PropTypes.string.def('#f6ca9d'),
+        bgColor: PropTypes.string.def('#333'),
+        themeColor: PropTypes.string.def('#f6ca9d'),
         fileList: PropTypes.array,
         listType: PropTypes.oneOf(
             tuple('list', 'card')

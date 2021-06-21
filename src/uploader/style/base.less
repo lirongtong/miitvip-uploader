@@ -5,7 +5,10 @@
 @mi-font-size-base: 16px;
 @mi-spacing: 8px;
 @mi-theme-color: #f6ca9d;
-@mi-font-color: #fff;
+@mi-font-color: #ffffff;
+@mi-black-color: #000000;
+@mi-white-color: #ffffff;
+@mi-body-color: #333333;
 
 .flex(@align: center, @justify: center) {
     display: -ms-flexbox;
@@ -21,6 +24,14 @@
     -o-border-radius: (@raduis / @mi-font-size-base) * @mi-font-size;
     -khtml-border-radius: (@raduis / @mi-font-size-base) * @mi-font-size;
     border-radius: (@raduis / @mi-font-size-base) * @mi-font-size;
+}
+
+.border-radius-circle() {
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    border-radius: 50%;
 }
 
 .properties(@key, @value: @mi-spacing) {

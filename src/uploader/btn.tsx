@@ -49,11 +49,13 @@ export default defineComponent({
                     },
                     width: 0,
                     height: 0,
+                    progress: 0,
                     percent: {
                         left: 0,
                         right: 0
                     }
-                }
+                },
+                uploading: false
             },
             multiple: {}
         })
@@ -68,6 +70,7 @@ export default defineComponent({
                     if (!props.multiple) {
                         fileList = []
                         handleSingleImagePreview(file)
+                        if (props.autoStart) handleSingleImageProgress()
                     }
                     fileList.push(file)
                     emit('fileAdded', file)
@@ -88,9 +91,43 @@ export default defineComponent({
                     : null
             )
         }
+        const getSingleImageProgress = () => {
+            const condition = props.showDefaultProgress &&
+                images.single.preview.progress < 100 &&
+                (
+                    (
+                        props.autoStart &&
+                        images.single.preview.status &&
+                        !images.single.preview.error
+                    ) ||
+                    (
+                        !props.autoStart &&
+                        images.single.uploading
+                    )
+                )
+            return condition
+                ? <div class={`${images.single.cls}-progress`}>
+                    <div class="progress">
+                        <div class="wrapper">
+                            <div class="left" style={{
+                                transform: `rotate(${images.single.preview.percent.left}deg)`
+                            }}></div>
+                        </div>
+                        <div class="wrapper">
+                            <div class="right" style={{
+                                transform: `rotate(${images.single.preview.percent.right}deg)`
+                            }}></div>
+                        </div>
+                    </div>
+                    <div class="mask">{ images.single.preview.progress }%</div>
+                </div>
+                : null
+        }
         const getSingleImageStyle = () => {
             return (props.width ? `width: ${props.width}px;` : '').toString() +
-            (props.height ? `height: ${props.height}px;` : '').toString()
+            (props.height ? `height: ${props.height}px;` : '').toString() +
+            (props.borderColor ? `border-color: ${props.borderColor};` : '') +
+            (props.bgColor ? `background-color: ${props.bgColor};` : '')
         }
         const getSingleImageElem = () => {
             return (
@@ -105,7 +142,7 @@ export default defineComponent({
                             accept={accept} />
                     </div>
                     { getSingleImagePreview() }
-                    <div class={`${images.single.cls}-progress`}></div>
+                    { getSingleImageProgress() }
                 </div>
             )
         }
@@ -148,6 +185,16 @@ export default defineComponent({
                     }
                 }
             })
+        }
+        const handleSingleImageProgress = () => {
+            images.single.preview.progress = 52
+            if (images.single.preview.progress <= 50) {
+                images.single.preview.percent.right = Math.ceil(3.6 * images.single.preview.progress)
+                images.single.preview.percent.left = 0
+            } else {
+                images.single.preview.percent.right = 180
+                images.single.preview.percent.left = Math.ceil((images.single.preview.progress - 50) * 3.6)
+            }
         }
         return () => {
             // element
